@@ -4,52 +4,79 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>CRC Open 2026-11-20 女单 · 回合回放</title>
+<meta name="theme-color" content="#ffeaf1">
+<title>Kristen vs Leung Kai Lam · CRC Open 2026</title>
 <style>
-  :root { --bg:#111417; --panel:#1b2026; --line:#2c333c; --text:#e8ecef; --dim:#8b96a3;
-          --friend:#c2337a; --opp:#3f6fd1; --accent:#d6e04b; }
+  :root { --bg:#ffeaf1; --panel:#fff; --line:#ffbfd2; --text:#4a2a35; --dim:#a8798a;
+          --red:#e4002b; --pink:#ff7fa8; --opp:#4f7fe0; --bow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-28 -19 56 38'%3E%3Cg fill='%23e4002b' stroke='%23222' stroke-width='3' stroke-linejoin='round'%3E%3Cpath d='M0 0C-8-16-26-14-24 0C-26 14-8 16 0 0Z'/%3E%3Cpath d='M0 0C8-16 26-14 24 0C26 14 8 16 0 0Z'/%3E%3Ccircle r='6.5'/%3E%3C/g%3E%3C/svg%3E"); }
   * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  html,body { margin:0; background:var(--bg); color:var(--text);
-              font:16px/1.4 -apple-system,"PingFang SC","Noto Sans SC",system-ui,sans-serif; }
-  body { padding-bottom:calc(92px + env(safe-area-inset-bottom)); }
+  html,body { margin:0; color:var(--text); background:var(--bg) radial-gradient(#ffd0de 1.6px, transparent 2.2px) 0 0/22px 22px;
+              font:16px/1.4 ui-rounded,"SF Pro Rounded","Hiragino Maru Gothic ProN","PingFang SC","Noto Sans SC",system-ui,sans-serif; }
+  body { padding-bottom:calc(96px + env(safe-area-inset-bottom)); }
+  button { font-family:inherit; }
+  .hello { display:flex; align-items:center; gap:10px; padding:10px 14px 8px; }
+  .hello svg { width:54px; height:45px; flex:none; }
+  .hello b { display:block; font-size:19px; color:var(--red); }
+  .hello span { display:block; font-size:12px; color:var(--dim); }
   .top { position:sticky; top:0; z-index:5; background:var(--bg); }
   video { display:block; width:100%; max-height:56vh; background:#000; }
-  .status { display:flex; align-items:center; gap:8px; padding:8px 12px; border-bottom:1px solid var(--line); }
-  .status b { font-size:17px; }
+  .status { display:flex; align-items:center; gap:8px; padding:8px 12px; background:#fff; border-bottom:2px solid var(--line); }
+  .status b { font-size:17px; color:var(--red); }
   .status .who { margin-left:auto; color:var(--dim); font-size:14px; white-space:nowrap; }
-  .dot { display:inline-block; width:10px; height:10px; border-radius:50%; vertical-align:baseline; }
-  .dot.friend { background:var(--friend); } .dot.opponent { background:var(--opp); }
-  .games { display:flex; gap:8px; overflow-x:auto; padding:10px 12px; scrollbar-width:none; }
+  .mark { display:inline-block; vertical-align:-1px; }
+  .mark.friend { width:19px; height:13px; background:var(--bow) center/contain no-repeat; }
+  .mark.opponent { width:10px; height:10px; border-radius:50%; background:var(--opp); }
+  .games { display:flex; gap:8px; overflow-x:auto; padding:12px 12px 10px; scrollbar-width:none; }
   .games::-webkit-scrollbar { display:none; }
-  .games button { flex:0 0 auto; min-width:52px; height:44px; border-radius:10px; border:1px solid var(--line);
+  .games button { flex:0 0 auto; min-width:58px; height:46px; border-radius:23px; border:2px solid var(--line);
                   background:var(--panel); color:var(--text); font-size:16px; }
-  .games button.on { border-color:var(--accent); color:var(--accent); font-weight:600; }
-  .games button .dot { width:7px; height:7px; margin-left:4px; }
-  h2 { margin:6px 12px 4px; font-size:14px; font-weight:500; color:var(--dim); }
-  .rallies { display:grid; grid-template-columns:repeat(auto-fill,minmax(76px,1fr)); gap:8px; padding:4px 12px 12px; }
-  .rallies button { height:52px; border-radius:10px; border:1px solid var(--line); background:var(--panel);
+  .games button.on { border-color:var(--red); background:#fff0f4; color:var(--red); font-weight:700; }
+  .games button .mark { margin-left:4px; transform:scale(.8); }
+  h2 { margin:6px 14px 4px; font-size:14px; font-weight:500; color:var(--dim); }
+  .rallies { display:grid; grid-template-columns:repeat(auto-fill,minmax(76px,1fr)); gap:10px; padding:8px 12px 12px; }
+  .rallies button { position:relative; height:54px; border-radius:16px; border:2px solid var(--line); background:var(--panel);
                     color:var(--text); font-size:16px; line-height:1.15; }
   .rallies button small { display:block; color:var(--dim); font-size:12px; }
-  .rallies button.on { background:var(--accent); border-color:var(--accent); color:#111; font-weight:600; }
-  .rallies button.on small { color:#333; }
-  .save { display:block; width:calc(100% - 24px); margin:0 12px 6px; height:48px; border-radius:10px;
-          border:1px solid var(--line); background:var(--panel); color:var(--accent); font-size:16px; }
+  .rallies button.on { background:var(--pink); border-color:var(--red); color:#fff; font-weight:700; }
+  .rallies button.on small { color:#fff; }
+  .rallies button.on::after { content:""; position:absolute; top:-10px; right:-7px; width:28px; height:19px;
+                              background:var(--bow) center/contain no-repeat; transform:rotate(18deg); }
+  .save { display:block; width:calc(100% - 24px); margin:2px 12px 6px; height:48px; border-radius:24px;
+          border:2px dashed var(--pink); background:var(--panel); color:var(--red); font-size:16px; font-weight:600; }
   .save:disabled { color:var(--dim); }
-  .saveNote { margin:0 12px 14px; color:var(--dim); font-size:13px; }
-  .opts { display:flex; flex-wrap:wrap; gap:8px 16px; padding:4px 12px 12px; color:var(--dim); font-size:14px; align-items:center; }
-  .seg { display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
-  .seg button { border:0; background:var(--panel); color:var(--text); padding:8px 12px; font-size:14px; }
-  .seg button.on { background:#3a424d; color:var(--accent); }
-  .note { padding:0 12px 16px; color:var(--dim); font-size:13px; }
+  .saveNote { margin:0 14px 14px; color:var(--dim); font-size:13px; }
+  .opts { display:flex; flex-wrap:wrap; gap:8px 14px; padding:4px 12px 12px; color:var(--dim); font-size:14px; align-items:center; }
+  .seg { display:inline-flex; border:2px solid var(--line); border-radius:20px; overflow:hidden; background:var(--panel); }
+  .seg button { border:0; background:transparent; color:var(--text); padding:8px 12px; font-size:14px; }
+  .seg button.on { background:var(--pink); color:#fff; font-weight:600; }
+  .note { padding:0 14px 16px; color:var(--dim); font-size:13px; }
   .bar { position:fixed; left:0; right:0; bottom:0; z-index:6; display:grid; grid-template-columns:1fr 84px 1fr; gap:8px;
-         padding:10px 12px calc(10px + env(safe-area-inset-bottom)); background:var(--bg); border-top:1px solid var(--line); }
-  .bar button { height:64px; border-radius:14px; border:1px solid var(--line); background:var(--panel);
-                color:var(--text); font-size:18px; font-weight:600; }
-  .bar button:active { background:#2a313a; }
+         padding:10px 12px calc(10px + env(safe-area-inset-bottom)); background:#fff; border-top:2px solid var(--line); }
+  .bar button { height:64px; border-radius:32px; border:2px solid var(--line); background:#fff0f4;
+                color:var(--red); font-size:18px; font-weight:700; }
+  .bar #next { background:var(--red); border-color:var(--red); color:#fff; }
+  .bar button:active { filter:brightness(.93); }
   .bar button:disabled { opacity:.35; }
 </style>
 </head>
 <body>
+<header class="hello">
+  <svg viewBox="0 0 120 100" aria-hidden="true">
+    <g fill="#fff" stroke="#222" stroke-width="4" stroke-linejoin="round">
+      <path d="M17 44 14 12 46 24Z"/><path d="M103 44 106 12 74 24Z"/>
+      <ellipse cx="60" cy="60" rx="49" ry="36"/>
+    </g>
+    <ellipse cx="37" cy="62" rx="4" ry="6" fill="#222"/><ellipse cx="83" cy="62" rx="4" ry="6" fill="#222"/>
+    <ellipse cx="60" cy="71" rx="5.5" ry="4" fill="#ffd23f" stroke="#222" stroke-width="2"/>
+    <g stroke="#222" stroke-width="3" stroke-linecap="round">
+      <path d="M2 54 20 58M0 66 19 66M3 78 20 74M118 54 100 58M120 66 101 66M117 78 100 74"/>
+    </g>
+    <g transform="translate(88 26) rotate(18) scale(.82)" fill="#e4002b" stroke="#222" stroke-width="3.6" stroke-linejoin="round">
+      <path d="M0 0C-8-16-26-14-24 0C-26 14-8 16 0 0Z"/><path d="M0 0C8-16 26-14 24 0C26 14 8 16 0 0Z"/><circle r="6.5"/>
+    </g>
+  </svg>
+  <div><b>Kristen 的比赛回放</b><span>CRC Open · 2026-11-20 · Kristen vs Leung Kai Lam</span></div>
+</header>
 <div class="top">
   <video id="v" playsinline controls preload="metadata"></video>
   <div class="status"><b id="title"></b><span class="who" id="who"></span></div>
@@ -58,7 +85,7 @@
 <h2 id="gameInfo"></h2>
 <div class="rallies" id="rallies"></div>
 <button class="save" id="save"></button>
-<p class="saveNote">下载完成后会弹出分享菜单，选“存储视频”即可存入相册。如果菜单没有弹出，再点一次按钮。</p>
+<p class="saveNote">只下载选中的这一分：从发球前几秒到最后一拍后两三秒。下载完成后会弹出分享菜单，选“存储视频”即可存入相册。如果菜单没有弹出，再点一次按钮。</p>
 <div class="opts">
   <span>播完后</span>
   <span class="seg" id="after"><button data-v="stop">停住</button><button data-v="next">下一回合</button><button data-v="loop">循环</button></span>
@@ -66,7 +93,7 @@
   <span class="seg" id="rate"><button data-v="0.5">0.5×</button><button data-v="1">1×</button></span>
 </div>
 <p class="note">
-  <span class="dot friend"></span> 紫红上衣　<span class="dot opponent"></span> 深蓝上衣。圆点表示这一局的发球方。<br>
+  <span class="mark friend"></span> Kristen　<span class="mark opponent"></span> Leung Kai Lam。每局数字旁的标记表示这一局的发球方。<br>
   电脑上可用 ← → 切换回合，空格重播。
 </p>
 <div class="bar">
@@ -75,26 +102,26 @@
   <button id="next">下一回合 ▶</button>
 </div>
 <script>
-const CLIPS = [{"game":1,"file":"g01.mp4","server":"friend","end":"far","start":2.0,"stop":14.9},{"game":1,"file":"g01.mp4","server":"friend","end":"far","start":22.9,"stop":37.4},{"game":1,"file":"g01.mp4","server":"friend","end":"far","start":41.4,"stop":50.1},{"game":1,"file":"g01.mp4","server":"friend","end":"far","start":81.4,"stop":98.7},{"game":1,"file":"g01.mp4","server":"friend","end":"far","start":129.6,"stop":150.7},{"game":1,"file":"g01.mp4","server":"friend","end":"far","start":167.7,"stop":194.7},{"game":1,"file":"g01.mp4","server":"friend","end":"far","start":207.6,"stop":218.1},{"game":2,"file":"g02.mp4","server":"opponent","end":"near","start":2.0,"stop":13.2},{"game":2,"file":"g02.mp4","server":"opponent","end":"near","start":23.9,"stop":34.0},{"game":2,"file":"g02.mp4","server":"opponent","end":"near","start":47.7,"stop":55.2},{"game":2,"file":"g02.mp4","server":"opponent","end":"near","start":85.7,"stop":97.6},{"game":3,"file":"g03.mp4","server":"friend","end":"near","start":2.0,"stop":10.4},{"game":3,"file":"g03.mp4","server":"friend","end":"near","start":23.0,"stop":45.8},{"game":3,"file":"g03.mp4","server":"friend","end":"near","start":76.6,"stop":85.3},{"game":3,"file":"g03.mp4","server":"friend","end":"near","start":92.6,"stop":102.5},{"game":3,"file":"g03.mp4","server":"friend","end":"near","start":110.6,"stop":130.6},{"game":3,"file":"g03.mp4","server":"friend","end":"near","start":151.1,"stop":167.4},{"game":4,"file":"g04.mp4","server":"opponent","end":"far","start":2.0,"stop":13.7},{"game":4,"file":"g04.mp4","server":"opponent","end":"far","start":27.7,"stop":37.1},{"game":4,"file":"g04.mp4","server":"opponent","end":"far","start":50.4,"stop":57.0},{"game":4,"file":"g04.mp4","server":"opponent","end":"far","start":87.6,"stop":107.4},{"game":5,"file":"g05.mp4","server":"friend","end":"far","start":2.0,"stop":10.4},{"game":5,"file":"g05.mp4","server":"friend","end":"far","start":22.5,"stop":35.3},{"game":5,"file":"g05.mp4","server":"friend","end":"far","start":55.4,"stop":79.0},{"game":5,"file":"g05.mp4","server":"friend","end":"far","start":92.9,"stop":100.0},{"game":5,"file":"g05.mp4","server":"friend","end":"far","start":117.2,"stop":129.7},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":2.0,"stop":10.4},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":15.9,"stop":22.9},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":31.9,"stop":41.4},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":59.3,"stop":66.8},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":81.9,"stop":88.4},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":101.4,"stop":124.1},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":145.3,"stop":164.2},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":181.9,"stop":194.7},{"game":7,"file":"g07.mp4","server":"friend","end":"near","start":2.0,"stop":11.5},{"game":7,"file":"g07.mp4","server":"friend","end":"near","start":18.3,"stop":24.9},{"game":7,"file":"g07.mp4","server":"friend","end":"near","start":34.4,"stop":41.1},{"game":7,"file":"g07.mp4","server":"friend","end":"near","start":50.9,"stop":69.7},{"game":7,"file":"g07.mp4","server":"friend","end":"near","start":83.3,"stop":108.2},{"game":8,"file":"g08.mp4","server":"opponent","end":"far","start":2.0,"stop":19.9},{"game":8,"file":"g08.mp4","server":"opponent","end":"far","start":35.8,"stop":50.3},{"game":8,"file":"g08.mp4","server":"opponent","end":"far","start":71.7,"stop":83.4},{"game":8,"file":"g08.mp4","server":"opponent","end":"far","start":98.8,"stop":113.4},{"game":8,"file":"g08.mp4","server":"opponent","end":"far","start":129.6,"stop":151.7},{"game":8,"file":"g08.mp4","server":"opponent","end":"far","start":167.2,"stop":176.0},{"game":9,"file":"g09.mp4","server":"friend","end":"far","start":2.0,"stop":10.5},{"game":9,"file":"g09.mp4","server":"friend","end":"far","start":24.1,"stop":32.5},{"game":9,"file":"g09.mp4","server":"friend","end":"far","start":42.3,"stop":56.9},{"game":9,"file":"g09.mp4","server":"friend","end":"far","start":74.5,"stop":81.5},{"game":9,"file":"g09.mp4","server":"friend","end":"far","start":110.9,"stop":122.4},{"game":9,"file":"g09.mp4","server":"friend","end":"far","start":157.0,"stop":163.4},{"game":10,"file":"g10.mp4","server":"opponent","end":"near","start":2.0,"stop":17.5},{"game":10,"file":"g10.mp4","server":"opponent","end":"near","start":31.1,"stop":46.3},{"game":10,"file":"g10.mp4","server":"opponent","end":"near","start":57.0,"stop":86.9},{"game":10,"file":"g10.mp4","server":"opponent","end":"near","start":107.2,"stop":117.6},{"game":10,"file":"g10.mp4","server":"opponent","end":"near","start":130.4,"stop":148.8}];
-const NAME = { friend: "紫红上衣", opponent: "深蓝上衣" };
+const CLIPS = [{"game":1,"file":"g01.mp4","clip":"clips/g01-01.mp4","server":"friend","end":"far","start":2.0,"stop":14.9},{"game":1,"file":"g01.mp4","clip":"clips/g01-02.mp4","server":"friend","end":"far","start":22.9,"stop":37.4},{"game":1,"file":"g01.mp4","clip":"clips/g01-03.mp4","server":"friend","end":"far","start":41.4,"stop":50.1},{"game":1,"file":"g01.mp4","clip":"clips/g01-04.mp4","server":"friend","end":"far","start":81.4,"stop":98.7},{"game":1,"file":"g01.mp4","clip":"clips/g01-05.mp4","server":"friend","end":"far","start":129.6,"stop":150.7},{"game":1,"file":"g01.mp4","clip":"clips/g01-06.mp4","server":"friend","end":"far","start":167.7,"stop":194.7},{"game":1,"file":"g01.mp4","clip":"clips/g01-07.mp4","server":"friend","end":"far","start":207.6,"stop":218.1},{"game":2,"file":"g02.mp4","clip":"clips/g02-01.mp4","server":"opponent","end":"near","start":2.0,"stop":13.2},{"game":2,"file":"g02.mp4","clip":"clips/g02-02.mp4","server":"opponent","end":"near","start":23.9,"stop":34.0},{"game":2,"file":"g02.mp4","clip":"clips/g02-03.mp4","server":"opponent","end":"near","start":47.7,"stop":55.2},{"game":2,"file":"g02.mp4","clip":"clips/g02-04.mp4","server":"opponent","end":"near","start":85.7,"stop":97.6},{"game":3,"file":"g03.mp4","clip":"clips/g03-01.mp4","server":"friend","end":"near","start":2.0,"stop":10.4},{"game":3,"file":"g03.mp4","clip":"clips/g03-02.mp4","server":"friend","end":"near","start":23.0,"stop":45.8},{"game":3,"file":"g03.mp4","clip":"clips/g03-03.mp4","server":"friend","end":"near","start":76.6,"stop":85.3},{"game":3,"file":"g03.mp4","clip":"clips/g03-04.mp4","server":"friend","end":"near","start":92.6,"stop":102.5},{"game":3,"file":"g03.mp4","clip":"clips/g03-05.mp4","server":"friend","end":"near","start":110.6,"stop":130.6},{"game":3,"file":"g03.mp4","clip":"clips/g03-06.mp4","server":"friend","end":"near","start":151.1,"stop":167.4},{"game":4,"file":"g04.mp4","clip":"clips/g04-01.mp4","server":"opponent","end":"far","start":2.0,"stop":13.7},{"game":4,"file":"g04.mp4","clip":"clips/g04-02.mp4","server":"opponent","end":"far","start":27.7,"stop":37.1},{"game":4,"file":"g04.mp4","clip":"clips/g04-03.mp4","server":"opponent","end":"far","start":50.4,"stop":57.0},{"game":4,"file":"g04.mp4","clip":"clips/g04-04.mp4","server":"opponent","end":"far","start":87.6,"stop":107.4},{"game":5,"file":"g05.mp4","clip":"clips/g05-01.mp4","server":"friend","end":"far","start":2.0,"stop":10.4},{"game":5,"file":"g05.mp4","clip":"clips/g05-02.mp4","server":"friend","end":"far","start":22.5,"stop":35.3},{"game":5,"file":"g05.mp4","clip":"clips/g05-03.mp4","server":"friend","end":"far","start":55.4,"stop":79.0},{"game":5,"file":"g05.mp4","clip":"clips/g05-04.mp4","server":"friend","end":"far","start":92.9,"stop":100.0},{"game":5,"file":"g05.mp4","clip":"clips/g05-05.mp4","server":"friend","end":"far","start":117.2,"stop":129.7},{"game":6,"file":"g06.mp4","clip":"clips/g06-01.mp4","server":"opponent","end":"near","start":2.0,"stop":10.4},{"game":6,"file":"g06.mp4","clip":"clips/g06-02.mp4","server":"opponent","end":"near","start":15.9,"stop":22.9},{"game":6,"file":"g06.mp4","clip":"clips/g06-03.mp4","server":"opponent","end":"near","start":31.9,"stop":41.4},{"game":6,"file":"g06.mp4","clip":"clips/g06-04.mp4","server":"opponent","end":"near","start":59.3,"stop":66.8},{"game":6,"file":"g06.mp4","clip":"clips/g06-05.mp4","server":"opponent","end":"near","start":81.9,"stop":88.4},{"game":6,"file":"g06.mp4","clip":"clips/g06-06.mp4","server":"opponent","end":"near","start":101.4,"stop":124.1},{"game":6,"file":"g06.mp4","clip":"clips/g06-07.mp4","server":"opponent","end":"near","start":145.3,"stop":164.2},{"game":6,"file":"g06.mp4","clip":"clips/g06-08.mp4","server":"opponent","end":"near","start":181.9,"stop":194.7},{"game":7,"file":"g07.mp4","clip":"clips/g07-01.mp4","server":"friend","end":"near","start":2.0,"stop":11.5},{"game":7,"file":"g07.mp4","clip":"clips/g07-02.mp4","server":"friend","end":"near","start":18.3,"stop":24.9},{"game":7,"file":"g07.mp4","clip":"clips/g07-03.mp4","server":"friend","end":"near","start":34.4,"stop":41.1},{"game":7,"file":"g07.mp4","clip":"clips/g07-04.mp4","server":"friend","end":"near","start":50.9,"stop":69.7},{"game":7,"file":"g07.mp4","clip":"clips/g07-05.mp4","server":"friend","end":"near","start":83.3,"stop":108.2},{"game":8,"file":"g08.mp4","clip":"clips/g08-01.mp4","server":"opponent","end":"far","start":2.0,"stop":19.9},{"game":8,"file":"g08.mp4","clip":"clips/g08-02.mp4","server":"opponent","end":"far","start":35.8,"stop":50.3},{"game":8,"file":"g08.mp4","clip":"clips/g08-03.mp4","server":"opponent","end":"far","start":71.7,"stop":83.4},{"game":8,"file":"g08.mp4","clip":"clips/g08-04.mp4","server":"opponent","end":"far","start":98.8,"stop":113.4},{"game":8,"file":"g08.mp4","clip":"clips/g08-05.mp4","server":"opponent","end":"far","start":129.6,"stop":151.7},{"game":8,"file":"g08.mp4","clip":"clips/g08-06.mp4","server":"opponent","end":"far","start":167.2,"stop":176.0},{"game":9,"file":"g09.mp4","clip":"clips/g09-01.mp4","server":"friend","end":"far","start":2.0,"stop":10.5},{"game":9,"file":"g09.mp4","clip":"clips/g09-02.mp4","server":"friend","end":"far","start":24.1,"stop":32.5},{"game":9,"file":"g09.mp4","clip":"clips/g09-03.mp4","server":"friend","end":"far","start":42.3,"stop":56.9},{"game":9,"file":"g09.mp4","clip":"clips/g09-04.mp4","server":"friend","end":"far","start":74.5,"stop":81.5},{"game":9,"file":"g09.mp4","clip":"clips/g09-05.mp4","server":"friend","end":"far","start":110.9,"stop":122.4},{"game":9,"file":"g09.mp4","clip":"clips/g09-06.mp4","server":"friend","end":"far","start":157.0,"stop":163.4},{"game":10,"file":"g10.mp4","clip":"clips/g10-01.mp4","server":"opponent","end":"near","start":2.0,"stop":17.5},{"game":10,"file":"g10.mp4","clip":"clips/g10-02.mp4","server":"opponent","end":"near","start":31.1,"stop":46.3},{"game":10,"file":"g10.mp4","clip":"clips/g10-03.mp4","server":"opponent","end":"near","start":57.0,"stop":86.9},{"game":10,"file":"g10.mp4","clip":"clips/g10-04.mp4","server":"opponent","end":"near","start":107.2,"stop":117.6},{"game":10,"file":"g10.mp4","clip":"clips/g10-05.mp4","server":"opponent","end":"near","start":130.4,"stop":148.8}];
+const NAME = { friend: "Kristen", opponent: "Leung Kai Lam" };
 const END = { far: "远端", near: "近端" };
 const v = document.getElementById("v"), $ = id => document.getElementById(id);
 const gameCount = Math.max(...CLIPS.map(c => c.game));
 const store = k => localStorage.getItem("rally." + k);
 let cur = Math.min(+(store("cur") || 0), CLIPS.length - 1);
-const saved = new Map();   // video file name -> downloaded File
-let busy = null;           // {game, pct} while a download runs
+const saved = new Map();   // clip file name -> downloaded File
+let busy = null;           // {label, pct} while a download runs
 let after = store("after") || "stop", rate = +(store("rate") || 1), armed = false;
 
 function render() {
   const c = CLIPS[cur], inGame = CLIPS.filter(x => x.game === c.game), k = inGame.indexOf(c);
   $("title").textContent = `第 ${c.game} 局 · 回合 ${k + 1}/${inGame.length}`;
-  $("who").innerHTML = `发球 <span class="dot ${c.server}"></span> ${NAME[c.server]}`;
-  $("gameInfo").textContent = `第 ${c.game} 局：${NAME[c.server]}发球，紫红上衣在${END[c.end]}（${c.end === "far" ? "画面左侧远处" : "画面右侧近处"}）`;
+  $("who").innerHTML = `发球 <span class="mark ${c.server}"></span> ${NAME[c.server]}`;
+  $("gameInfo").textContent = `第 ${c.game} 局：${NAME[c.server]} 发球，Kristen 在${END[c.end]}（${c.end === "far" ? "画面左侧远处" : "画面右侧近处"}）`;
   $("games").innerHTML = "";
   for (let g = 1; g <= gameCount; g++) {
     const first = CLIPS.findIndex(x => x.game === g), b = document.createElement("button");
-    b.innerHTML = `${g}<span class="dot ${CLIPS[first].server}"></span>`;
+    b.innerHTML = `${g}<span class="mark ${CLIPS[first].server}"></span>`;
     b.className = g === c.game ? "on" : "";
     b.onclick = () => go(first);
     $("games").appendChild(b);
@@ -109,8 +136,9 @@ function render() {
     $("rallies").appendChild(b);
   });
   $("save").disabled = !!busy;
-  $("save").textContent = busy ? `正在下载第 ${busy.game} 局视频 ${busy.pct}%`
-    : saved.has(c.file) ? `保存第 ${c.game} 局视频到相册` : `下载第 ${c.game} 局视频`;
+  const label = `第 ${c.game} 局第 ${k + 1} 分`;
+  $("save").textContent = busy ? `正在下载${busy.label} ${busy.pct}%`
+    : saved.has(c.clip) ? `保存${label}到相册` : `下载${label}（${Math.round(c.stop - c.start)} 秒）`;
   $("prev").disabled = cur === 0;
   $("next").disabled = cur === CLIPS.length - 1;
   for (const [id, val] of [["after", after], ["rate", String(rate)]])
@@ -143,14 +171,14 @@ function watch() {
   requestAnimationFrame(watch);
 }
 
-// Download the video file of the selected game, then hand it to the share menu of the phone.
+// Download the video file of the selected rally, then hand it to the share menu of the phone.
 // Phones only save a video to the photo album from the share menu, not from a plain download link.
 $("save").onclick = async () => {
   const c = CLIPS[cur];
-  if (!saved.has(c.file)) {
-    busy = { game: c.game, pct: 0 }; render();
+  if (!saved.has(c.clip)) {
+    busy = { label: `第 ${c.game} 局第 ${CLIPS.filter(x => x.game === c.game).indexOf(c) + 1} 分`, pct: 0 }; render();
     try {
-      const r = await fetch(c.file);
+      const r = await fetch(c.clip);
       if (!r.ok) throw new Error(r.status);
       const total = +r.headers.get("Content-Length"), reader = r.body.getReader(), parts = [];
       for (let got = 0; ;) {
@@ -160,12 +188,12 @@ $("save").onclick = async () => {
         const pct = total ? Math.round(100 * got / total) : 0;
         if (pct !== busy.pct) { busy.pct = pct; render(); }
       }
-      saved.set(c.file, new File(parts, `crc-open-game-${String(c.game).padStart(2, "0")}.mp4`, { type: "video/mp4" }));
+      saved.set(c.clip, new File(parts, "kristen-" + c.clip.split("/").pop(), { type: "video/mp4" }));
     } catch (e) { alert("下载失败，请重试。"); }
     busy = null; render();
-    if (!saved.has(c.file)) return;
+    if (!saved.has(c.clip)) return;
   }
-  const f = saved.get(c.file);
+  const f = saved.get(c.clip);
   if (navigator.canShare && navigator.canShare({ files: [f] })) {
     // The share menu can be refused when the download took long; the button then opens it on the next tap.
     try { await navigator.share({ files: [f] }); } catch (e) {}
