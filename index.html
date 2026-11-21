@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CRC Open 2026-11-20 女单 · 回合回放</title>
+<style>
+  :root { --bg:#111417; --panel:#1b2026; --line:#2c333c; --text:#e8ecef; --dim:#8b96a3;
+          --friend:#c2337a; --opp:#3f6fd1; --accent:#d6e04b; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body { margin:0; background:var(--bg); color:var(--text);
+              font:16px/1.4 -apple-system,"PingFang SC","Noto Sans SC",system-ui,sans-serif; }
+  body { padding-bottom:calc(92px + env(safe-area-inset-bottom)); }
+  .top { position:sticky; top:0; z-index:5; background:var(--bg); }
+  video { display:block; width:100%; max-height:56vh; background:#000; }
+  .status { display:flex; align-items:center; gap:8px; padding:8px 12px; border-bottom:1px solid var(--line); }
+  .status b { font-size:17px; }
+  .status .who { margin-left:auto; color:var(--dim); font-size:14px; white-space:nowrap; }
+  .dot { display:inline-block; width:10px; height:10px; border-radius:50%; vertical-align:baseline; }
+  .dot.friend { background:var(--friend); } .dot.opponent { background:var(--opp); }
+  .games { display:flex; gap:8px; overflow-x:auto; padding:10px 12px; scrollbar-width:none; }
+  .games::-webkit-scrollbar { display:none; }
+  .games button { flex:0 0 auto; min-width:52px; height:44px; border-radius:10px; border:1px solid var(--line);
+                  background:var(--panel); color:var(--text); font-size:16px; }
+  .games button.on { border-color:var(--accent); color:var(--accent); font-weight:600; }
+  .games button .dot { width:7px; height:7px; margin-left:4px; }
+  h2 { margin:6px 12px 4px; font-size:14px; font-weight:500; color:var(--dim); }
+  .rallies { display:grid; grid-template-columns:repeat(auto-fill,minmax(76px,1fr)); gap:8px; padding:4px 12px 12px; }
+  .rallies button { height:52px; border-radius:10px; border:1px solid var(--line); background:var(--panel);
+                    color:var(--text); font-size:16px; line-height:1.15; }
+  .rallies button small { display:block; color:var(--dim); font-size:12px; }
+  .rallies button.on { background:var(--accent); border-color:var(--accent); color:#111; font-weight:600; }
+  .rallies button.on small { color:#333; }
+  .opts { display:flex; flex-wrap:wrap; gap:8px 16px; padding:4px 12px 12px; color:var(--dim); font-size:14px; align-items:center; }
+  .seg { display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  .seg button { border:0; background:var(--panel); color:var(--text); padding:8px 12px; font-size:14px; }
+  .seg button.on { background:#3a424d; color:var(--accent); }
+  .note { padding:0 12px 16px; color:var(--dim); font-size:13px; }
+  .bar { position:fixed; left:0; right:0; bottom:0; z-index:6; display:grid; grid-template-columns:1fr 84px 1fr; gap:8px;
+         padding:10px 12px calc(10px + env(safe-area-inset-bottom)); background:var(--bg); border-top:1px solid var(--line); }
+  .bar button { height:64px; border-radius:14px; border:1px solid var(--line); background:var(--panel);
+                color:var(--text); font-size:18px; font-weight:600; }
+  .bar button:active { background:#2a313a; }
+  .bar button:disabled { opacity:.35; }
+</style>
+</head>
+<body>
+<div class="top">
+  <video id="v" playsinline controls preload="metadata"></video>
+  <div class="status"><b id="title"></b><span class="who" id="who"></span></div>
+</div>
+<div class="games" id="games"></div>
+<h2 id="gameInfo"></h2>
+<div class="rallies" id="rallies"></div>
+<div class="opts">
+  <span>播完后</span>
+  <span class="seg" id="after"><button data-v="stop">停住</button><button data-v="next">下一回合</button><button data-v="loop">循环</button></span>
+  <span>速度</span>
+  <span class="seg" id="rate"><button data-v="0.5">0.5×</button><button data-v="1">1×</button></span>
+</div>
+<p class="note">
+  <span class="dot friend"></span> 紫红上衣　<span class="dot opponent"></span> 深蓝上衣。圆点表示这一局的发球方。<br>
+  电脑上可用 ← → 切换回合，空格重播。
+</p>
+<div class="bar">
+  <button id="prev">◀ 上一回合</button>
+  <button id="replay">重播</button>
+  <button id="next">下一回合 ▶</button>
+</div>
+<script>
+const CLIPS = [{"game":1,"file":"g01.mp4","server":"friend","end":"far","start":2.0,"stop":14.9},{"game":1,"file":"g01.mp4","server":"friend","end":"far","start":22.9,"stop":37.4},{"game":1,"file":"g01.mp4","server":"friend","end":"far","start":41.4,"stop":50.1},{"game":1,"file":"g01.mp4","server":"friend","end":"far","start":81.4,"stop":98.7},{"game":1,"file":"g01.mp4","server":"friend","end":"far","start":129.6,"stop":150.7},{"game":1,"file":"g01.mp4","server":"friend","end":"far","start":167.7,"stop":194.7},{"game":1,"file":"g01.mp4","server":"friend","end":"far","start":207.6,"stop":218.1},{"game":2,"file":"g02.mp4","server":"opponent","end":"near","start":2.0,"stop":13.2},{"game":2,"file":"g02.mp4","server":"opponent","end":"near","start":23.9,"stop":34.0},{"game":2,"file":"g02.mp4","server":"opponent","end":"near","start":47.7,"stop":55.2},{"game":2,"file":"g02.mp4","server":"opponent","end":"near","start":85.7,"stop":97.6},{"game":3,"file":"g03.mp4","server":"friend","end":"near","start":2.0,"stop":10.4},{"game":3,"file":"g03.mp4","server":"friend","end":"near","start":23.0,"stop":45.8},{"game":3,"file":"g03.mp4","server":"friend","end":"near","start":76.6,"stop":85.3},{"game":3,"file":"g03.mp4","server":"friend","end":"near","start":92.6,"stop":102.5},{"game":3,"file":"g03.mp4","server":"friend","end":"near","start":110.6,"stop":130.6},{"game":3,"file":"g03.mp4","server":"friend","end":"near","start":151.1,"stop":167.4},{"game":4,"file":"g04.mp4","server":"opponent","end":"far","start":2.0,"stop":13.7},{"game":4,"file":"g04.mp4","server":"opponent","end":"far","start":27.7,"stop":37.1},{"game":4,"file":"g04.mp4","server":"opponent","end":"far","start":50.4,"stop":57.0},{"game":4,"file":"g04.mp4","server":"opponent","end":"far","start":87.6,"stop":107.4},{"game":5,"file":"g05.mp4","server":"friend","end":"far","start":2.0,"stop":10.4},{"game":5,"file":"g05.mp4","server":"friend","end":"far","start":22.5,"stop":35.3},{"game":5,"file":"g05.mp4","server":"friend","end":"far","start":55.4,"stop":79.0},{"game":5,"file":"g05.mp4","server":"friend","end":"far","start":92.9,"stop":100.0},{"game":5,"file":"g05.mp4","server":"friend","end":"far","start":117.2,"stop":129.7},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":2.0,"stop":10.4},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":15.9,"stop":22.9},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":31.9,"stop":41.4},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":59.3,"stop":66.8},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":81.9,"stop":88.4},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":101.4,"stop":124.1},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":145.3,"stop":164.2},{"game":6,"file":"g06.mp4","server":"opponent","end":"near","start":181.9,"stop":194.7},{"game":7,"file":"g07.mp4","server":"friend","end":"near","start":2.0,"stop":11.5},{"game":7,"file":"g07.mp4","server":"friend","end":"near","start":18.3,"stop":24.9},{"game":7,"file":"g07.mp4","server":"friend","end":"near","start":34.4,"stop":41.1},{"game":7,"file":"g07.mp4","server":"friend","end":"near","start":50.9,"stop":69.7},{"game":7,"file":"g07.mp4","server":"friend","end":"near","start":83.3,"stop":108.2},{"game":8,"file":"g08.mp4","server":"opponent","end":"far","start":2.0,"stop":19.9},{"game":8,"file":"g08.mp4","server":"opponent","end":"far","start":35.8,"stop":50.3},{"game":8,"file":"g08.mp4","server":"opponent","end":"far","start":71.7,"stop":83.4},{"game":8,"file":"g08.mp4","server":"opponent","end":"far","start":98.8,"stop":113.4},{"game":8,"file":"g08.mp4","server":"opponent","end":"far","start":129.6,"stop":151.7},{"game":8,"file":"g08.mp4","server":"opponent","end":"far","start":167.2,"stop":176.0},{"game":9,"file":"g09.mp4","server":"friend","end":"far","start":2.0,"stop":10.5},{"game":9,"file":"g09.mp4","server":"friend","end":"far","start":24.1,"stop":32.5},{"game":9,"file":"g09.mp4","server":"friend","end":"far","start":42.3,"stop":56.9},{"game":9,"file":"g09.mp4","server":"friend","end":"far","start":74.5,"stop":81.5},{"game":9,"file":"g09.mp4","server":"friend","end":"far","start":110.9,"stop":122.4},{"game":9,"file":"g09.mp4","server":"friend","end":"far","start":157.0,"stop":163.4},{"game":10,"file":"g10.mp4","server":"opponent","end":"near","start":2.0,"stop":17.5},{"game":10,"file":"g10.mp4","server":"opponent","end":"near","start":31.1,"stop":46.3},{"game":10,"file":"g10.mp4","server":"opponent","end":"near","start":57.0,"stop":86.9},{"game":10,"file":"g10.mp4","server":"opponent","end":"near","start":107.2,"stop":117.6},{"game":10,"file":"g10.mp4","server":"opponent","end":"near","start":130.4,"stop":148.8}];
+const NAME = { friend: "紫红上衣", opponent: "深蓝上衣" };
+const END = { far: "远端", near: "近端" };
+const v = document.getElementById("v"), $ = id => document.getElementById(id);
+const gameCount = Math.max(...CLIPS.map(c => c.game));
+const store = k => localStorage.getItem("rally." + k);
+let cur = Math.min(+(store("cur") || 0), CLIPS.length - 1);
+let after = store("after") || "stop", rate = +(store("rate") || 1), armed = false;
+
+function render() {
+  const c = CLIPS[cur], inGame = CLIPS.filter(x => x.game === c.game), k = inGame.indexOf(c);
+  $("title").textContent = `第 ${c.game} 局 · 回合 ${k + 1}/${inGame.length}`;
+  $("who").innerHTML = `发球 <span class="dot ${c.server}"></span> ${NAME[c.server]}`;
+  $("gameInfo").textContent = `第 ${c.game} 局：${NAME[c.server]}发球，紫红上衣在${END[c.end]}（${c.end === "far" ? "画面左侧远处" : "画面右侧近处"}）`;
+  $("games").innerHTML = "";
+  for (let g = 1; g <= gameCount; g++) {
+    const first = CLIPS.findIndex(x => x.game === g), b = document.createElement("button");
+    b.innerHTML = `${g}<span class="dot ${CLIPS[first].server}"></span>`;
+    b.className = g === c.game ? "on" : "";
+    b.onclick = () => go(first);
+    $("games").appendChild(b);
+    if (g === c.game) b.scrollIntoView({ block: "nearest", inline: "center" });
+  }
+  $("rallies").innerHTML = "";
+  inGame.forEach((x, i) => {
+    const b = document.createElement("button");
+    b.innerHTML = `${i + 1}<small>${Math.round(x.stop - x.start)} 秒</small>`;
+    b.className = x === c ? "on" : "";
+    b.onclick = () => go(CLIPS.indexOf(x));
+    $("rallies").appendChild(b);
+  });
+  $("prev").disabled = cur === 0;
+  $("next").disabled = cur === CLIPS.length - 1;
+  for (const [id, val] of [["after", after], ["rate", String(rate)]])
+    for (const b of $(id).children) b.className = b.dataset.v === val ? "on" : "";
+}
+
+// Each game has its own video file. "#t=" makes the browser open the file at the start of the rally.
+function load(c) { v.src = `${c.file}#t=${c.start}`; v.defaultPlaybackRate = rate; }
+
+function go(i) {
+  cur = Math.max(0, Math.min(CLIPS.length - 1, i));
+  localStorage.setItem("rally.cur", cur);
+  render();
+  const c = CLIPS[cur];
+  if (!v.src.includes(c.file)) {
+    load(c);
+    v.addEventListener("loadedmetadata", () => { if (Math.abs(v.currentTime - c.start) > 0.3) v.currentTime = c.start; }, { once: true });
+  } else v.currentTime = c.start;
+  v.playbackRate = rate; armed = true;
+  v.play().catch(() => {});
+}
+
+// Stop, advance or loop when the current rally ends. Checked on every drawn frame while playing.
+function watch() {
+  if (armed && !v.paused && !v.seeking && v.currentTime >= CLIPS[cur].stop) {
+    if (after === "loop") v.currentTime = CLIPS[cur].start;
+    else if (after === "next" && cur < CLIPS.length - 1) go(cur + 1);
+    else { armed = false; v.pause(); }
+  }
+  requestAnimationFrame(watch);
+}
+
+$("prev").onclick = () => go(cur - 1);
+$("next").onclick = () => go(cur + 1);
+$("replay").onclick = () => go(cur);
+$("after").onclick = e => { if (e.target.dataset.v) { after = e.target.dataset.v; localStorage.setItem("rally.after", after); render(); } };
+$("rate").onclick = e => { if (e.target.dataset.v) { rate = +e.target.dataset.v; v.playbackRate = rate; localStorage.setItem("rally.rate", rate); render(); } };
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowRight") go(cur + 1);
+  else if (e.key === "ArrowLeft") go(cur - 1);
+  else if (e.key === " ") { e.preventDefault(); go(cur); }
+});
+load(CLIPS[cur]);   // show the remembered rally without playing
+render();
+requestAnimationFrame(watch);
+</script>
+</body>
+</html>
